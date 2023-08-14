@@ -1,5 +1,6 @@
 import pygame 
 import character
+import background
 from pygame.constants import DROPTEXT
 
 pygame.init()
@@ -12,14 +13,6 @@ SCREEN_HEIGHT = 800
 screen = pygame.display.set_mode((SCREEN_HEIGHT, SCREEN_HEIGHT))
 pygame.display.set_caption("Shooter Game")
 
-# Background
-BROWN = (165, 42, 42)
-BLACK = (0, 0, 0)
-
-def draw_background():
-    screen.fill(BROWN)
-    pygame.draw.line(screen, BLACK, (0, 400), (SCREEN_WIDTH, 400))
-
 # Player and enemy instance
 player = character.Character(100, 200, 0.15)
 enemy = character.Character("enemy", 200, 200, 0.175, 3)
@@ -28,7 +21,7 @@ scale = 0.15
 run = True  
 while run: 
     clock.tick(FPS)  
-    draw_background()  
+    background.draw_background()  
     player.draw() 
     enemy.draw()
     player.move(move_left, move_right) 
