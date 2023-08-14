@@ -26,18 +26,7 @@ while run:
     background.draw_background()  
     player.draw() 
     enemy.draw()
-
-    # Action checks for different animations
-    if player.alive:
-        if (move_left and player.in_air) or (move_right and player.in_air):
-            player.new_action(2)
-        elif player.in_air:  
-            player.new_action(2)  
-        elif move_left or move_right:  
-            player.new_action(1)  
-        else:
-            player.new_action(0)
-
+    player.player_action()
     player.move(move_left, move_right)  
 
     # Event handler

@@ -113,3 +113,15 @@ class Character(pygame.sprite.Sprite):
     def draw(self):
         main.screen.blit(pygame.transform.flip(
             self.img, self.flip, False), self.rect)
+    
+    # Player action animations
+    def player_actions(self):
+        if self.alive:
+            if (move_left and self.in_air) or (move_right and self.in_air):
+                self.new_action(2)
+            elif self.in_air:  
+                self.new_action(2)  
+            elif move_left or move_right:  
+                self.new_action(1)  
+            else:
+                self.new_action(0)
