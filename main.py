@@ -14,8 +14,11 @@ pygame.display.set_caption("Shooter Game")
 
 # Background
 BROWN = (165, 42, 42)
+BLACK = (0, 0, 0)
+
 def draw_background():
     screen.fill(BROWN)
+    pygame.draw.line(screen, BLACK, (0, 400), (SCREEN_WIDTH, 400))
 
 # Player and enemy instance
 player = character.Character(100, 200, 0.15)
