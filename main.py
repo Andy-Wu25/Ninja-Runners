@@ -36,6 +36,9 @@ while run:
 
         # Key presses
         if event.type == pygame.KEYDOWN:  
+            if event.key == pygame.K_w and player.alive:
+                player.jump = True
+                
             if event.key == pygame.K_a:  
                 move_left = True
             if event.key == pygame.K_d:  
