@@ -2,10 +2,13 @@ import pygame
 import character
 import background
 from pygame.constants import DROPTEXT
-
 pygame.init()
+
+# Game variables
 clock = pygame.time.Clock()
-FPS = 60  
+FPS = 60
+scale = 0.15
+run = True 
 
 # Game window
 SCREEN_WIDTH = 1000  
@@ -17,8 +20,7 @@ pygame.display.set_caption("Shooter Game")
 player = character.Character(100, 200, 0.15)
 enemy = character.Character("enemy", 200, 200, 0.175, 3)
 
-scale = 0.15
-run = True  
+ 
 while run: 
     clock.tick(FPS)  
     background.draw_background()  
