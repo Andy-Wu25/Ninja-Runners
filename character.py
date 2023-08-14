@@ -1,4 +1,5 @@
 import pygame
+import main
 pygame.init()
 
 class Character(pygame.sprite.Sprite):
@@ -35,5 +36,5 @@ class Character(pygame.sprite.Sprite):
 
     # Draw method
     def draw(self):
-        screen.blit(pygame.transform.flip(
+        main.screen.blit(pygame.transform.flip(
             self.img, self.flip, False), self.rect)
