@@ -56,7 +56,7 @@ class Character(pygame.sprite.Sprite):
             image = pygame.transform.scale(
                 image, (int(image.get_width() * scale), int(image.get_height() * scale)))
             jump_list.append(image)
-        self.animation_list.append(jump_list)  
+        self.animation_list.append(jump_list)  # Index 2 in animation list
 
         # Throw animation list
         throw_list = []
