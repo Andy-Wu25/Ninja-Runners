@@ -118,95 +118,63 @@ class Character(pygame.sprite.Sprite):
             dy = 400 - self.rect.bottom
             self.in_air = False
 
-        # Change the player's rectangle position
-        self.rect.x += dx  # Rectangle's x-coordinate will increase by dx
-        self.rect.y += dy  # Rectangle's y-coordinate will increase by dy
-
-    # Update method, handles all the animations and cooldowns
+        self.rect.x += dx 
+        self.rect.y += dy
 
     def update(self):
-        self.animation()  # Call the animation method
-        # Call the alive method to load the death animation if the instance has died
+        self.animation()  
         self.check_alive()
-        # Update throw cooldown
         if self.throw_cooldown > 0:
             self.throw_cooldown -= 1
 
     # Animation method
-
     def animation(self):
-        ANIMATION_TIMER = 50  # Animation timer to keep track of when to load the next image
-        # Change the animation image depending on the current action of the player
+        ANIMATION_TIMER = 50 
         self.img = self.animation_list[self.current_action][self.index]
-        # Check the time passed to go onto the next animation image
-        # Current time - last update time > ANIMTION_TIMER
         if pygame.time.get_ticks() - self.animation_time > ANIMATION_TIMER:
-            # Reset the animation_time to the current time, resetting the timer
             self.animation_time = pygame.time.get_ticks()
-            # Move onto the next index of the animation list, loading the next animation image
             self.index += 1
-            # Check the current index against the total number of images in the current action list
-            # If current action is 0 (idle), it will check the length of the list in index 0 of the animation list
-
-            # Check if the index is greater than or equal to the total number of images in the current action list
-            # This means that it has reached the end of the action animation
             if self.index >= len(self.animation_list[self.current_action]):
-                # Check if the current action is 4, which is the death animation
+
                 if self.current_action == 4:
-                    # Make the index remain at the length of the death animation list - 1, which will be the last index of the list
                     self.index = len(
                         self.animation_list[self.current_action]) - 1
-
-                # Check if  the current action value is 3, which is the throw animation
+                    
                 elif self.current_action == 3:
                     self.index = 0
 
                     global throw_completed
-                    throw_completed = True  # The throw animation has completed
+                    throw_completed = True
                 else:
-                    self.index = 0  # Reset all other animation index back to 0 so that it repeats through the animation images again
+                    self.index = 0 
 
     # Changing player action method
-
     def new_action(self, different_action):
-        if different_action != self.current_action:  # Check if current action is equal to new action
-            # Set the current action to different_action if they are not the same
+        if different_action != self.current_action:  
             self.current_action = different_action
-
-            # Set the animation to current time so that it can be used to keep track of how much time has passed
             self.animation_time = pygame.time.get_ticks()
-            # Reset index variable so that when there is a change in animation, it starts at index 0 again
             self.index = 0
 
     # Throw method
-
     def throw(self):
-        # Check that the player has not run out of weapons to throw
         if player.number_weapon > 0 and self.throw_cooldown == 0:
-            # Create a instance of the Weapon class
             self.throw_cooldown = 50
             weapon = Weapon(self.rect.centerx + (90 * self.direction),
                             self.rect.centery + 30, self.direction)
-        # Add the instance to the sprite group
             weapon_group.add(weapon)
-            # Reduce number of weapons by 1 everytime the player presses the spacebar
             player.number_weapon -= 1
 
     # Check alive method
-
     def check_alive(self):
-        if self.health <= 0:  # Check if the health of the instance is below or equal to 0
-            self.health = 0  # Set health to 0 so it is not negative
-            self.alive = False  # The instance has died due to the health being <= 0
-            # Set the different_action value to 4, causing the animation to change to index 4 of animation_list, which is the death animation
+        if self.health <= 0: 
+            self.health = 0  
+            self.alive = False  
             self.new_action(4)
 
     # Draw method
-
     def draw(self):
         screen.blit(pygame.transform.flip(
             self.img, self.flip, False), self.rect)
-        #pygame.draw.rect(screen, RED, self.rect, 1)
     
     # Player action animations
     def player_actions(self):
