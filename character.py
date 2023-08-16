@@ -160,7 +160,7 @@ class Character(pygame.sprite.Sprite):
         if player.number_weapon > 0 and self.throw_cooldown == 0:
             self.throw_cooldown = 50
             weapon = Weapon(self.rect.centerx + (90 * self.direction),
-                            self.rect.centery + 30, self.direction)
+                            self.rect.centery + 30, self.direction) # Create new Weapon instance
             weapon_group.add(weapon)
             player.number_weapon -= 1
 
