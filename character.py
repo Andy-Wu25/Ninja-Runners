@@ -62,62 +62,44 @@ class Character(pygame.sprite.Sprite):
                 image, (int(image.get_width() * scale), int(image.get_height() * scale)))
             death_list.append(image)
         self.animation_list.append(death_list)  # Index 4 in animation list
-
         self.img = self.animation_list[self.current_action][self.index]
-
         self.rect = self.img.get_rect()
-
         self.rect.center = (x, y)
-
         self.speed = speed
-
         self.direction = 1  
-
         self.flip = False
-
         self.throw_cooldown = 0
-
-
         self.number_weapon = number_weapon
-
         self.health = health
-
         self.maximum_health = self.health
 
     # Move method
 
     def move(self, move_left, move_right):
-
         dx = 0 
         dy = 0
-
         # Movement variables
         if move_left:
             dx = -self.speed  
             self.flip = True 
             self.direction = -1 
-
         # Move right
         if move_right:
             dx = self.speed  
             self.flip = False  
             self.direction = 1  # 1 represents facing right
-
         # Jump
         if self.jump == True and self.in_air == False:
             self.velocity_y = -11
             self.jump = False
             self.in_air = True
-
         # Gravity
         self.velocity_y += GRAVITY
         dy += self.velocity_y
-
         # Collision check with floor
         if self.rect.bottom + dy > 400:
             dy = 400 - self.rect.bottom
             self.in_air = False
-
         self.rect.x += dx 
         self.rect.y += dy
 
@@ -126,7 +108,7 @@ class Character(pygame.sprite.Sprite):
         self.check_alive()
         if self.throw_cooldown > 0:
             self.throw_cooldown -= 1
-
+            
     # Animation method
     def animation(self):
         ANIMATION_TIMER = 50 
@@ -135,14 +117,11 @@ class Character(pygame.sprite.Sprite):
             self.animation_time = pygame.time.get_ticks()
             self.index += 1
             if self.index >= len(self.animation_list[self.current_action]):
-
                 if self.current_action == 4:
                     self.index = len(
                         self.animation_list[self.current_action]) - 1
-                    
                 elif self.current_action == 3:
                     self.index = 0
-
                     global throw_completed
                     throw_completed = True
                 else:
