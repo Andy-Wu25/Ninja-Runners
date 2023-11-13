@@ -19,17 +19,13 @@ class Weapon(pygame.sprite.Sprite):
     # Weapon movement
     def update(self):
         self.rect.x += (self.direction * self.change_pixel)
-
         if self.rect.x > main.SCREEN_WIDTH or self.rect.x < 0:
             self.kill()
-
-        # Check collision with instances
         # Collision between player and weapon
         if pygame.sprite.spritecollide(main.player, main.weapon_group, False):
             if main.player.alive: 
                 self.kill()  
                 main.player.health -= 50  
-
         # Collision between enemy and weapon
         if pygame.sprite.spritecollide(main.enemy, main.weapon_group, False):
             if main.enemy.alive:  
